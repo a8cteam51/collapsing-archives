@@ -1,19 +1,22 @@
-<?php 
+<?php
 class collapsArchWidget extends WP_Widget {
-  function __construct() {
-    $widget_ops = array('classname' => 'widget_collapsarch', 'description' =>
-    'Collapsible archives listing' );
-		$control_ops = array (
-			'width' => '400', 
-			'height' => '400'
-			);
-    $this->WP_Widget('collapsarch', 'Collapsing Archives', $widget_ops,
-    $control_ops);
+  public function __construct() {
+	$widget_ops = array( 'classname' => 'widget_collapsarch', 'description' => 'Collapsible archives listing' );
+	$control_ops = array (
+		'width' => '400',
+		'height' => '400',
+	);
+	parent::__construct(
+		'collapsarch',
+		'Collapsing Archives',
+		$widget_ops,
+		$control_ops
+	);
   }
- 
+
   function widget($args, $instance) {
     extract($args, EXTR_SKIP);
- 
+
     $title = empty($instance['title']) ? '&nbsp;' : apply_filters('widget_title', $instance['title']);
     echo $before_widget . $before_title . $title . $after_title;
     $instance['number'] = $this->get_field_id('top');
@@ -28,13 +31,13 @@ class collapsArchWidget extends WP_Widget {
     echo "</ul>\n";
     echo $after_widget;
   }
- 
+
   function update($new_instance, $old_instance) {
     $instance = $old_instance;
     include('updateOptions.php');
     return $instance;
   }
- 
+
   function form($instance) {
   include('defaults.php');
     include('collapsArchStyles.php');
