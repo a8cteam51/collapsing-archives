@@ -38,7 +38,7 @@ add_action('init', 'collapsArch_load_domain');
 
 /****************/
 if (!is_admin()) {
-  wp_enqueue_script('jquery');
+
   add_action( 'wp_head', array('collapsArch','get_head'));
 } else {
   // call upgrade function if current version is lower than actual version

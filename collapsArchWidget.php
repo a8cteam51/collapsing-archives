@@ -15,6 +15,7 @@ class collapsArchWidget extends WP_Widget {
   }
 
   function widget($args, $instance) {
+    wp_enqueue_script('jquery');
     extract($args, EXTR_SKIP);
 
     $title = empty($instance['title']) ? '&nbsp;' : apply_filters('widget_title', $instance['title']);
