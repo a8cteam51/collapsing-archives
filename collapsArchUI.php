@@ -32,14 +32,14 @@ $widgetOn=0;
 $number='%i%';
 if (empty($options)) {
   $number = '-1';
-} elseif (!isset($options['%i%']['title']) || 
+} elseif (!isset($options['%i%']['title']) ||
     count($options) > 1) {
-  $widgetOn=1; 
+  $widgetOn=1;
 }
 
 if( isset($_POST['resetOptions']) ) {
   if (isset($_POST['reset'])) {
-    delete_option('collapsArchOptions');   
+    delete_option('collapsArchOptions');
 		$widgetOn=0;
     $number = '-1';
   }
@@ -81,7 +81,7 @@ stripslashes(get_option('collapsArchStyle')) ?>" />
        <select name='collapsArchDefaultStyles' id='collapsArchDefaultStyles'
          onchange='changeStyle("collapsArchStylePreview","collapsArchStyle", "collapsArchDefaultStyles", "collapsArchSelectedStyle", false);' />
        <?php
-    $url = get_settings('siteurl') . '/wp-content/plugins/collapsing-archives';
+    $url = get_site_url() . '/wp-content/plugins/collapsing-archives';
        $styleOptions=get_option('collapsArchDefaultStyles');
        //print_r($styleOptions);
        $selected=$styleOptions['selected'];
