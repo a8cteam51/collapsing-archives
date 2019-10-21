@@ -2,7 +2,7 @@
 /*
 Plugin Name: Collapsing Archives
 Plugin URI: http://robfelty.com/plugins/collapsing-archives
-Description: Allows users to expand and collapse archive links like Blogger. <a href='http://wordpress.org/extend/plugins/collapsing-archives/other_notes'>Manual</a> | <a href='http://wordpress.org/extend/plugins/collapsing-archives/faq'>FAQ</a> 
+Description: Allows users to expand and collapse archive links like Blogger. <a href='http://wordpress.org/extend/plugins/collapsing-archives/other_notes'>Manual</a> | <a href='http://wordpress.org/extend/plugins/collapsing-archives/faq'>FAQ</a>
 Author: Robert Felty
 Version: 2.0.5
 Author URI: http://robfelty.com
@@ -24,8 +24,8 @@ This file is part of Collapsing Archives
     You should have received a copy of the GNU General Public License
     along with Collapsing Archives; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/ 
-$url = get_settings('siteurl');
+*/
+$url = get_site_url();
 global $collapsArchVersion;
 $collapsArchVersion = '2.0.2';
 
@@ -33,12 +33,12 @@ $collapsArchVersion = '2.0.2';
 function collapsArch_load_domain() {
 	load_plugin_textdomain( 'collapsArch', WP_PLUGIN_DIR."/".basename(dirname(__FILE__)), basename(dirname(__FILE__)) );
 }
-add_action('init', 'collapsArch_load_domain'); 
+add_action('init', 'collapsArch_load_domain');
 
 
 /****************/
 if (!is_admin()) {
-  wp_enqueue_script('jquery');
+
   add_action( 'wp_head', array('collapsArch','get_head'));
 } else {
   // call upgrade function if current version is lower than actual version
@@ -85,7 +85,7 @@ class collapsArch {
   }
   public static function phpArrayToJS($array, $name, $options) {
     /* generates javscript code to create an array from a php array */
-    print "try { $name" . 
+    print "try { $name" .
         "['catTest'] = 'test'; } catch (err) { $name = new Object(); }\n";
     if (!$options['expandYears'] && $options['expandMonths']) {
       $lastYear = -1;
@@ -98,7 +98,7 @@ class collapsArch {
         if ($year != $lastYear) {
           if ($lastYear>0)
             print  "';\n";
-          print $name . "['$label-$year:$widget'] = '" . 
+          print $name . "['$label-$year:$widget'] = '" .
               addslashes(str_replace("\n", '', $value));
 
           $lastYear=$year;
@@ -109,7 +109,7 @@ class collapsArch {
       print  "';\n";
     } else {
       foreach ($array as $key => $value){
-        print $name . "['$key'] = '" . 
+        print $name . "['$key'] = '" .
             addslashes(str_replace("\n", '', $value)) . "';\n";
       }
     }
@@ -121,7 +121,7 @@ function collapsArch($args='') {
   include('defaults.php');
   $options=wp_parse_args($args, $defaults);
   if (!is_admin()) {
-    if (!$options['number'] || $options['number']=='') 
+    if (!$options['number'] || $options['number']=='')
       $options['number']=1;
     $archives = list_archives($options);
     extract($options);
@@ -138,12 +138,12 @@ function collapsArch($args='') {
     // now we create an array indexed by the id of the ul for posts
     collapsArch::phpArrayToJS($collapsArchItems, 'collapsItems', $options);
     include_once('collapsFunctions.js');
-      echo "addExpandCollapse('widget-collapsarch-$number-top'," . 
+      echo "addExpandCollapse('widget-collapsarch-$number-top'," .
           "'$expandSym', '$collapseSym', " . $accordion . ")";
     print "// ]]>\n</script></li>\n";
   }
 }
 $version = get_bloginfo('version');
-if (preg_match('/^(2\.[8-9]|[3-9]\..*)/', $version)) 
+if (preg_match('/^(2\.[8-9]|[3-9]\..*)/', $version))
   include('collapsArchWidget.php');
 ?>
