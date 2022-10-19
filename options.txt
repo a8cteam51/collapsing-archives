@@ -4,7 +4,7 @@
      id="<?php echo $this->get_field_id('showPages'); ?>"></input> <label
      for="collapsArchShowPages"><?php _e('Show Pages as well as posts', 'collapsArch'); ?> </label>
     </p>
-     <p><?php _e('Display archives in', 'collapsArch'); ?>
+     <p><?php _e('Display archives in', 'collapsArch'); ?> 
      <select name="<?php echo $this->get_field_name('sort'); ?>">
      <option  <?php if($sort=='ASC') echo 'selected'; ?>
      id="<?php echo $this->get_field_id('sort'); ?>"
@@ -25,15 +25,15 @@
      <?php if($expand==4) echo 'checked'; ?> id="expand4" value='4'></input>
      <label for="expand4">custom</label>
      <?php _e('expand:', 'collapsArch'); ?>
-     <input type="text" size='1' name="<?php echo $this->get_field_name('customExpand'); ?>" value="<?php echo $customExpand ?>" id="<?php echo $this->get_field_id('customExpand'); ?>"></input>
+     <input type="text" size='1' name="<?php echo $this->get_field_name('customExpand'); ?>" value="<?php echo $customExpand ?>" id="<?php echo $this->get_field_id('customExpand'); ?>"></input> 
      <?php _e('collapse:', 'collapsArch'); ?>
-     <input type="text" size='1' name="<?php echo $this->get_field_name('customCollapse'); ?>" value="<?php echo $customCollapse ?>" id="<?php echo $this->get_field_id('customCollapse'); ?>"></input>
+     <input type="text" size='1' name="<?php echo $this->get_field_name('customCollapse'); ?>" value="<?php echo $customCollapse ?>" id="<?php echo $this->get_field_id('customCollapse'); ?>"></input> 
      <?php _e('<strong>images:</strong>', 'collapsArch');?>
      <input type="radio" name="<?php echo $this->get_field_name('expand'); ?>"
      <?php if($expand==3) echo 'checked'; ?> id="expand0" value='3'></input>
-     <label for="expand3"><img src='<?php echo get_site_url() .
+     <label for="expand3"><img src='<?php echo get_option('siteurl') .
      "/wp-content/plugins/collapsArch/" ?>img/collapse.gif' />&nbsp;<img
-     src='<?php echo get_site_url() .
+     src='<?php echo get_option('siteurl') .
      "/wp-content/plugins/collapsArch/" ?>img/expand.gif' /></label>
     </p>
     <p>
@@ -42,16 +42,16 @@
      <option  <?php if($inExcludeYear=='exclude') echo 'selected'; ?> id="<?php echo $this->get_field_id(''); ?>" value='exclude'><?php _e('Exclude', 'collapsArch');?></option>
      </select>
      <?php _e('these years (separated by commas):', 'collapsArch');?><br />
-    <input type="text" name="<?php echo $this->get_field_name('inExcludeYears'); ?>" value="<?php echo $inExcludeYears ?>"
-    id="<?php echo $this->get_field_id('inExcludeYears'); ?>"></input>
+    <input type="text" name="<?php echo $this->get_field_name('inExcludeYears'); ?>" value="<?php echo $inExcludeYears ?>"  
+    id="<?php echo $this->get_field_id('inExcludeYears'); ?>"></input> 
     </p>
-    <p>
+    <p> 
      <select name="<?php echo $this->get_field_name('inExcludeCat'); ?>">
      <option  <?php if($inExcludeCat=='include') echo 'selected'; ?> id="<?php echo $this->get_field_id('inExcludeCatInclude') ?>" value='include'>Include</option>
      <option  <?php if($inExcludeCat=='exclude') echo 'selected'; ?> id="<?php echo $this->get_field_id('inExcludeCatExclude') ?>" value='exclude'>Exclude</option>
      </select>
      <?php _e('these categories (input slug or ID separated by commas):', 'collapsArch') ?><br />
-    <input type="text" name="<?php echo $this->get_field_name('inExcludeCats'); ?>" value="<?php echo $inExcludeCats ?>" id="<?php echo $this->get_field_id('inExcludeCats') ?>"</input>
+    <input type="text" name="<?php echo $this->get_field_name('inExcludeCats'); ?>" value="<?php echo $inExcludeCats ?>" id="<?php echo $this->get_field_id('inExcludeCats') ?>"</input> 
     </p>
 <?php
 // get taxonomy types
@@ -127,7 +127,7 @@ value='all'>All post types (regular posts plus custom post types)</option>
    <p>
    <input type="checkbox" name="<?php echo $this->get_field_name('showPostDate'); ?>" <?php if ($showPostDate) echo
    'checked'; ?> id="<?php echo $this->get_field_id('showPostDate'); ?>"></input> <label
-   for="showPostDate"><?php _e('Show Post Date', 'collapsArch'); ?></label> |
+   for="showPostDate"><?php _e('Show Post Date', 'collapsArch'); ?></label> | 
      <select name="<?php echo $this->get_field_name('postDateAppend'); ?>">
      <option  <?php if($postDateAppend=='before') echo 'selected'; ?> id="<?php echo $this->get_field_id('postDateAppendBefore') ?>" value='before'><?php _e('Before post title', 'collapsArch') ?></option>
      <option  <?php if($postDateAppend=='after') echo 'selected'; ?> id="<?php echo $this->get_field_id('postDateAppendAfter') ?>" value='after'><?php _e('After post title', 'collapsArch') ?></option>
@@ -135,15 +135,15 @@ value='all'>All post types (regular posts plus custom post types)</option>
    <label for="postDateFormat"><a href='http://php.net/date'
     title='information about date formatting syntax' target='_blank'>
     <?php _e('as', 'collapsArch'); ?></a>:</label>
-   <input type="text" size='8' name="<?php echo $this->get_field_name('postDateFormat'); ?>" value="<?php echo $postDateFormat; ?>"
-   id="<?php echo $this->get_field_id('postDateFormat'); ?>"></input>
+   <input type="text" size='8' name="<?php echo $this->get_field_name('postDateFormat'); ?>" value="<?php echo $postDateFormat; ?>" 
+   id="<?php echo $this->get_field_id('postDateFormat'); ?>"></input> 
    </p>
   <p><label for='<?php echo $this->get_field_id("style")?>'><?php _e('Style',
   'collapsArch')?></label>
   <select id='<?php echo $this->get_field_id("style")?>'
     name='<?php echo $this->get_field_name("style")?>'>
   <?php foreach ($styleOptions as $key =>$value): ?>
-  <option value='<?php echo attribute_escape($key) ?>'
+  <option value='<?php echo attribute_escape($key) ?>' 
   <?php if ($style == $key) echo "selected='selected'" ?>>
   <?php echo $value ?></option>
   <?php endforeach ?>

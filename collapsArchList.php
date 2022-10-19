@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Archives version: 2.0.5
+Collapsing Archives version: 2.1.3
 
 Copyright 2007-2017 Robert Felty
 
@@ -134,15 +134,15 @@ function list_archives($options) {
     if ($allPosts[$i]->month != $lastMonth) {
       $lastMonth=$allPosts[$i]->month;
     }
-    if ( isset( $yearCounts{"$lastYear"} ) ) {
-      $yearCounts{"$lastYear"}++;
+    if ( isset( $yearCounts[ "$lastYear" ] ) ) {
+      $yearCounts[ "$lastYear" ]++;
     } else {
-      $yearCounts{"$lastYear"}=1;
+      $yearCounts[ "$lastYear" ]=1;
     }
-    if ( isset( $monthCounts{"$lastYear$lastMonth"} ) ) {
-      $monthCounts{"$lastYear$lastMonth"}++;
+    if ( isset( $monthCounts[ "$lastYear$lastMonth" ] ) ) {
+      $monthCounts[ "$lastYear$lastMonth" ]++;
     } else {
-      $monthCounts{"$lastYear$lastMonth"}=1;
+      $monthCounts[ "$lastYear$lastMonth" ]=1;
     }
   }
 
@@ -170,7 +170,7 @@ function list_archives($options) {
       $newYear = true;
       if ($showYearCount) {
         $yearCount = ' <span class="yearCount">(' .
-            $yearCounts{"$currentYear"} . ")</span>\n";
+            $yearCounts[ "$currentYear" ] . ")</span>\n";
       }
       else {
         $yearCount = '';
@@ -182,16 +182,16 @@ function list_archives($options) {
       $monthTitle= __('click to expand', 'collapsArch');
       /* rel = expand means that it will be hidden, and clicking on the
        * triangle will expand it. rel = collapse means that is will be shown, and
-       * clicking on the triangle will collapse it
+       * clicking on the triangle will collapse it 
        */
-      if (( $expandCurrentYear AND $archPost->year == date('Y'))
+      if (( $expandCurrentYear AND $archPost->year == date('Y')) 
           OR ($useCookies AND isset( $_COOKIE[$theID] ) AND $_COOKIE[$theID]==1)) {
         $ding = $collapseSym;
         $yearRel = 'collapse';
         $yearTitle= __('click to collapse', 'collapsArch');
         $monthStyle = '';
       }
-
+      
       if($i>=1 && $allPosts[$i-1]->year != $archPost->year ) {
         if ($currentMonth==0) {
           $lastID = "collapsArch-$lastYear-$lastMonth:$number";
@@ -202,7 +202,7 @@ function list_archives($options) {
           if( $expandMonths ) {
             $expandingCurrentMonth = $expandCurrentMonth && $currentYear == date('Y')
             && $lastMonth== date('n');
-            $cookieSet = $useCookies AND isset($_COOKIE[$lastID])
+            $cookieSet = $useCookies AND isset($_COOKIE[$lastID]) 
                 AND $_COOKIE[$lastID]==1;
             if ($expanded)
               $archives .= "\n        </ul>\n";
@@ -219,7 +219,7 @@ function list_archives($options) {
           }
         }
       }
-      $home = get_home_url();
+      $home = get_option('home');
       if( $expandYears  || $expandMonths) {
         $archives .= "  <li class='collapsing archives $yearRel'><span title='$yearTitle' " .
             "class='collapsing archives $yearRel'>" .
@@ -265,14 +265,14 @@ function list_archives($options) {
       $collapsArchItems[$lastID] = "$monthText";
       $monthText='';
     }
-    if ($expandCurrentMonth AND $currentYear == date('Y')
+    if ($expandCurrentMonth AND $currentYear == date('Y') 
         AND $lastMonth== date('n')
         OR ($useCookies AND isset($_COOKIE[$lastID]) AND $_COOKIE[$lastID]==1))
       $expanded=true;
     else
       $expanded=false;
     if($newYear == false) { #close off last month
-      $newYear=true;
+      $newYear=true; 
     } else {
       if ($expandYears) {
         if ($expandMonths) {
@@ -287,7 +287,7 @@ function list_archives($options) {
 
     if ($showMonthCount) {
       $monthCount = ' <span class="monthCount">(' .
-          $monthCounts{"$currentYear$currentMonth"} . ")</span>\n";
+          $monthCounts[ "$currentYear$currentMonth" ] . ")</span>\n";
     } else {
       $monthCount = '';
     }
@@ -295,7 +295,7 @@ function list_archives($options) {
       $text = sprintf('%s', $month[zeroise($currentMonth,2)]);
 
       $text = wptexturize($text);
-      $title_text = esc_html( $text );
+      $title_text = wp_specialchars($text,1);
 
       if (in_array($post_type, array('all', 'post'))) {
         $monthLink = get_month_link( $currentYear, $currentMonth );
@@ -306,7 +306,7 @@ function list_archives($options) {
         $link = 'javascript:;';
         $monthCollapse = 'collapsing archives';
         if(( $expandCurrentMonth && $currentYear == date('Y')
-            AND $currentMonth == date('n'))
+            AND $currentMonth == date('n')) 
             OR ($useCookies AND isset( $_COOKIE[$theID] ) AND $_COOKIE[$theID]==1)) {
           $monthRel = 'collapse';
           $monthTitle= __('click to collapse', 'collapsArch');
@@ -340,9 +340,9 @@ function list_archives($options) {
 
     }
     if ($expandYears && $expandMonths ) {
-      $archives .= "        <div $postStyle " .
+      $archives .= "        <div $postStyle " . 
           "id='$theID'>\n";
-      if (($expandCurrentMonth AND $currentYear == date('Y')
+      if (($expandCurrentMonth AND $currentYear == date('Y') 
           AND $currentMonth== date('n'))
           OR ($useCookies AND isset($_COOKIE[$theID]) AND $_COOKIE[$theID]==1))
         $archives .= "        <ul>\n";
@@ -372,7 +372,7 @@ function list_archives($options) {
       $text .= ( $tmp_text == '') ? $title_text : $tmp_text;
       if ($showPostDate ) {
         $theDate = mysql2date($postDateFormat, $archPost->post_date );
-        if ($postDateAppend=='after') {
+        if ($postDateAppend=='after') { 
           $text .= ( $text == '' ? $theDate : " $theDate" );
         } else {
           $text = ( $text == '' ? $theDate : "$theDate " ) . $text;
@@ -384,18 +384,18 @@ function list_archives($options) {
       $monthText .= "          <li class='collapsing archives item'><a href='$link' " .
           "title='$title_text'>$text</a></li>\n";
       if (($expandCurrentMonth  AND $expandYears
-            AND $currentYear == date('Y') AND $currentMonth == date('n'))
+            AND $currentYear == date('Y') AND $currentMonth == date('n')) 
             OR ($useCookies AND isset( $_COOKIE[$theID] ) AND $_COOKIE[$theID]==1)) {
         $archives .= "$monthText";
         $monthText='';
       } elseif (($expandCurrentYear  && $expandMonths
-           && $currentYear == date('Y'))
+           && $currentYear == date('Y')) 
            OR ($useCookies AND isset( $_COOKIE[$theID] ) AND $_COOKIE[$theID]==1)) {
       }
     }
   }
   if ($expandMonths) {
-    if ((!$currentYear == date('Y') && !$currentMonth == date('n'))
+    if ((!$currentYear == date('Y') && !$currentMonth == date('n')) 
         OR ($useCookies AND ( ! isset( $_COOKIE[$theID] ) OR !$_COOKIE[$theID]==1))) {
       $archives .= '';
     }
@@ -414,7 +414,7 @@ function list_archives($options) {
   }
   if (!$expandYears && $expandMonths) {
   }
-
+ 
   if ($expandYears && !$expandMonths) {
     $archives .= "  </li> <!-- close month --></div><!-- close year -->\n";
     $collapsArchItems[$theID] = $theID;
