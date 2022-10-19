@@ -143,7 +143,7 @@ value='all'>All post types (regular posts plus custom post types)</option>
   <select id='<?php echo $this->get_field_id("style")?>'
     name='<?php echo $this->get_field_name("style")?>'>
   <?php foreach ($styleOptions as $key =>$value): ?>
-  <option value='<?php echo attribute_escape($key) ?>' 
+  <option value='<?php echo esc_attr($key) ?>'
   <?php if ($style == $key) echo "selected='selected'" ?>>
   <?php echo $value ?></option>
   <?php endforeach ?>

@@ -31,7 +31,7 @@ if ( -1 == $number ) {
   $animate=1;
   $debug=0;
 } else {
-  $title = attribute_escape($options[$number]['title']);
+  $title = esc_attr($options[$number]['title']);
   $showPostCount = $options[$number]['showPostCount'];
   $expand = $options[$number]['expand'];
   $customExpand = $options[$number]['customExpand'];
