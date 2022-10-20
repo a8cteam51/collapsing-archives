@@ -1,21 +1,17 @@
 <?php
 class collapsArchWidget extends WP_Widget {
-  public function __construct() {
-	$widget_ops = array( 'classname' => 'widget_collapsarch', 'description' => 'Collapsible archives listing' );
-	$control_ops = array (
-		'width' => '400',
-		'height' => '400',
-	);
-	parent::__construct(
-		'collapsarch',
-		'Collapsing Archives',
-		$widget_ops,
-		$control_ops
-	);
+  function __construct() {
+    $widget_ops = array('classname' => 'widget_collapsarch', 'description' =>
+    'Collapsible archives listing' );
+		$control_ops = array (
+			'width' => '400',
+			'height' => '400'
+			);
+    parent::__construct('collapsarch', 'Collapsing Archives', $widget_ops,
+    $control_ops);
   }
 
   function widget($args, $instance) {
-    wp_enqueue_script('jquery');
     extract($args, EXTR_SKIP);
 
     $title = empty($instance['title']) ? '&nbsp;' : apply_filters('widget_title', $instance['title']);
@@ -45,7 +41,7 @@ class collapsArchWidget extends WP_Widget {
   $options=wp_parse_args($instance, $defaults);
   extract($options);
 ?>
-      <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input  id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+      <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input  id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
 <?php
     include('options.txt');
 ?>
